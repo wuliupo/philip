@@ -7,125 +7,119 @@
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
     <link rel="shortcut icon" href="favicon.png" type="image/png">
     <title>个人收藏夹</title>
-    <style>
-        body {
-            font-family: -apple-system-font,'Helvetica Neue',Helvetica,sans-serif;
-            -webkit-font-smoothing: antialiased;
-            text-rendering: optimizeLegibility;
-            background: #FBFBFB;
-            color: #333;
-            margin: 20px;
-        }
-        h1, h3, div {
-            font-weight: 400;
-        }
-        h1, h3 {
-            margin-top: 15px;
-            margin-bottom: 15px;
-        }
-        .container {
-             display: flex;
-             flex-wrap: wrap;
-             justify-content: space-between;
-        }
-        .col {
-            width: 30%;
-        }
-        @media (max-width: 768px) {
-            .col {
-                width: 100%;
-            }
-        }
-        @media (min-width: 769px) and (max-width: 992px) {
-            .col {
-                width: 40%;
-            }
-        }
-        .note .card {
-            border-color: rgb(153, 145, 239);
-        }
-        .tool .card {
-            border-color: rgb(100, 206, 80);
-        }
-        .codepen .card {
-            border-color: rgb(195, 68, 72);
-        }
-        .card {
-            display: flex;
-            align-items: center;
-            padding: 10px 18px;
-            background: #fff;
-            border-radius: 3px;
-            margin-bottom: 15px;
-            text-decoration: none;
-            border-left: 3px solid;
-            box-shadow: 0px 2px 0px rgba(170,170,170,0.1);
-        }
-        .card img {
-            width: 35px;
-            height: 35px;
-            margin-right: 15px;
-        }
-        .card .title {
-            margin-bottom: 10px;
-        }
-        .card .subtitle {
-            font-size: 12px;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+
+        <div class="header"></div>
+
+        <div class="tabs">
+            <input type="radio" id="note" name="tab" checked>
+            <label class="tab" for="note">
+                <i class="icon-note"></i>
+                <span>Note</span>
+            </label>
+
+            <input type="radio" id="tool" name="tab">
+            <label class="tab" for="tool">
+                <i class="icon-tool"></i>
+                <span>Tool</span>
+            </label>
+
+            <input type="radio" id="code" name="tab">
+            <label class="tab" for="code">
+                <i class="icon-code"></i>
+                <span>Code</span>
+            </label>
+
+            <div class="search">
+                <input type="search" id="search">
+                <label class="icon-search" for="search"></label>
+            </div>
+
+            <div class="clearfix"></div>
+
+            <div class="content">
+                <div class="panel note">
+                    <div id="__note"></div>
+                </div>
+
+                <div class="panel tool">
+                    <a class="card" target="_blank" href="https://philipding.github.io/linux">
+                        <img src="icons/linux.svg">
+                        <div>
+                            <div class="title">Linux Command</div>
+                            <div class="subtitle">Linux命令大全搜索工具（个人）</div>
+                        </div>
+                    </a>
+
+                    <a class="card" target="_blank" href="https://csstriggers.com/">
+                        <img src="icons/css-trigger.png">
+                        <div>
+                            <div class="title">CSS Triggers</div>
+                            <div class="subtitle">Render impact of mutating CSS properties</div>
+                        </div>
+                    </a>
+
+                    <a class="card" target="_blank" href="https://platform.html5.org/">
+                        <img src="icons/h5.svg">
+                        <div>
+                            <div class="title">Web platform</div>
+                            <div class="subtitle">HTML5的web浏览技术图谱</div>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="panel code">
+                    <div id="__code"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
-        var _hmt = _hmt || [];
-        (function() {
+        !function() {
+            var _hmt = _hmt || [];
             var hm = document.createElement("script");
             hm.src = "https://hm.baidu.com/hm.js?962e3f94f638c4215cbd93bafaa53714";
             var s = document.getElementsByTagName("script")[0];
             s.parentNode.insertBefore(hm, s);
-        })();
+
+            function appendTo(htmlStr, id, save) {
+                var arr = [], file = {}, html = '', el;
+
+                try {
+                     arr = JSON.parse(htmlStr);
+                     localStorage.setItem(id, htmlStr);
+                } catch(e) {}
+
+                if (!arr || arr.length == 0) return;
+
+                for (var i = 0, len = arr.length; i < len; i++) {
+                    item = arr[i];
+                    if (item && item.type == 'file' && item.name.indexOf('.html') > -1) {
+                        html += '<a class="tag" target="_blank" href="//philipding.github.io/codepen/' + item.name + '">' + item.name.replace(/\.html/, '') + '</a>'
+                    }
+                }
+
+                document.getElementById(id).innerHTML = html
+            }
+
+            var htmlStr = localStorage && localStorage.getItem('__code') || '';
+            htmlStr && appendTo(htmlStr, '__code');
+
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    appendTo(xhr.responseText, '__code', true);
+                }
+            }
+            xhr.open('GET', 'https://api.github.com/repos/philipding/codepen/contents', true);
+            xhr.send();
+        }()
     </script>
-</head>
-
-<body>
-    <h1>收藏夹</h1><hr>
-
-    <div class="container">
-
-        <div class="col note">
-            <h3>笔记</h3>
-        </div>
-
-        <div class="col tool">
-            <h3>工具</h3>
-
-            <a class="card" target="_blank" href="https://philipding.github.io/linux">
-                <img src="icons/linux.svg">
-                <div>
-                    <div class="title">Linux Command</div>
-                    <div class="subtitle">Linux命令大全搜索工具（个人）</div>
-                </div>
-            </a>
-
-            <a class="card" target="_blank" href="https://csstriggers.com/">
-                <img src="icons/css-trigger.png">
-                <div>
-                    <div class="title">CSS Triggers</div>
-                    <div class="subtitle">Render impact of mutating CSS properties</div>
-                </div>
-            </a>
-
-            <a class="card" target="_blank" href="https://platform.html5.org/">
-                <img src="icons/h5.svg">
-                <div>
-                    <div class="title">Web platform</div>
-                    <div class="subtitle">HTML5的web浏览技术图谱</div>
-                </div>
-            </a>
-        </div>
-
-        <div class="col codepen">
-            <h3>练习</h3>
-
-        </div>
-    </div>
 </body>
 
 </html>

@@ -105,6 +105,10 @@ input[type='search'] {
     z-index: 1;
 }
 
+.tab-menu {
+    float: left;
+}
+
 .tab,
 .search {
     text-align: center;
@@ -117,14 +121,19 @@ input[type='search'] {
 }
 
 .tab {
-    float: left;
+    float: right;
     text-decoration: none;
-    transition: background .2s ease-in-out;
+    transition: background-color .2s ease-in-out;
 }
 
-.tab:target {
-    background: #5DA2ED;
+.tab:last-child, .tab:target {
+    background-color: #5DA2ED;
     color: #fff;
+}
+
+.tab:target ~ .tab{
+    background-color: transparent;
+    color: #8398AD;
 }
 
 .tab:hover {
@@ -163,17 +172,6 @@ input[type='search'] {
     pointer-events: none;
     height: calc(100vh - 44px);
     overflow: auto;
-}
-
-#note:target~.content .note,
-#tool:target~.content .tool,
-#code:target~.content .code,
-#book:target~.content .book {
-    opacity: 1;
-    z-index: 10;
-    transform: translateY(0);
-    transition: all .3s ease-out;
-    pointer-events: all;
 }
 
 

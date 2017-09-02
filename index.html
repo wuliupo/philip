@@ -15,25 +15,26 @@
         <div class="header"></div>
 
         <div class="tabs">
-            <a href="#note" class="tab" id="note">
-                <i class="icon-note"></i>
-                <span>Note</span>
-            </a>
+            <div class="tab-menu">
+                <a href="#tool" class="tab" id="tool">
+                    <i class="icon-tool"></i>
+                    <span>Tool</span>
+                </a>
 
-            <a href="#tool" class="tab" id="tool">
-                <i class="icon-tool"></i>
-                <span>Tool</span>
-            </a>
+                <a href="#code" class="tab" id="code">
+                    <i class="icon-code"></i>
+                    <span>Code</span>
+                </a>
 
-            <a href="#code" class="tab" id="code">
-                <i class="icon-code"></i>
-                <span>Code</span>
-            </a>
-
-            <a href="#book" class="tab" id="book">
-                <i class="icon-book"></i>
-                <span>Book</span>
-            </a>
+                <a href="#book" class="tab" id="book">
+                    <i class="icon-book"></i>
+                    <span>Book</span>
+                </a>
+                <a href="#note" class="tab" id="note">
+                    <i class="icon-note"></i>
+                    <span>Note</span>
+                </a>
+            </div>
 
             <div class="search">
                 <input type="search" id="search">
@@ -43,11 +44,6 @@
             <div class="clearfix"></div>
 
             <div class="content">
-                <div class="panel note">
-                    <div id="__note"></div>
-                    note
-                </div>
-
                 <div class="panel tool">
                     <a class="card icon-linux" target="_blank" href="https://philipding.github.io/linux">
                         <div class="title">Linux Command</div>
@@ -73,56 +69,16 @@
                     <div id="__book"></div>
                     book
                 </div>
+
+                <div class="panel note">
+                    <div id="__note"></div>
+                    note
+                </div>
+
             </div>
         </div>
     </div>
 
-    <script>
-        !function() {
-            var _hmt = _hmt || [];
-            var hm = document.createElement("script");
-            hm.src = "https://hm.baidu.com/hm.js?962e3f94f638c4215cbd93bafaa53714";
-            var s = document.getElementsByTagName("script")[0];
-            s.parentNode.insertBefore(hm, s);
-
-            function appendTo(htmlStr, id, save) {
-                var arr = [], file = {}, html = '', el;
-
-                try {
-                     arr = JSON.parse(htmlStr);
-                     localStorage.setItem(id, htmlStr);
-                } catch(e) {}
-
-                if (!arr || arr.length == 0) return;
-
-                for (var i = 0, len = arr.length; i < len; i++) {
-                    item = arr[i];
-                    if (item && item.type == 'file' && item.name.indexOf('.html') > -1) {
-                        html += ('<a class="tag" target="_blank" href="//philipding.github.io/codepen/' + item.name + '">'
-                                 + item.name.replace(/\.html/ig, '').replace(/-/g, ' ')
-                                 + '</a>');
-                    }
-                }
-
-                document.getElementById(id).innerHTML = html
-            }
-
-            // TODO: 如何用纯CSS来实现默认选中第一个tab
-            document.location.hash === '' && document.getElementsByClassName('tab')[0].click();
-
-            var htmlStr = localStorage && localStorage.getItem('__code') || '';
-            htmlStr && appendTo(htmlStr, '__code');
-
-            var xhr = new XMLHttpRequest();
-            xhr.onreadystatechange = function() {
-                if (xhr.readyState == 4 && xhr.status == 200) {
-                    appendTo(xhr.responseText, '__code', true);
-                }
-            }
-            xhr.open('GET', 'https://api.github.com/repos/philipding/codepen/contents', true);
-            xhr.send();
-        }()
-    </script>
 </body>
 
 </html>

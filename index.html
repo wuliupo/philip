@@ -108,7 +108,7 @@
             }
 
             // TODO: 如何用纯CSS来实现默认选中第一个tab
-            document.getElementsByClassName('tab')[0].click();
+            document.location.hash === '' && document.getElementsByClassName('tab')[0].click();
 
             var htmlStr = localStorage && localStorage.getItem('__code') || '';
             htmlStr && appendTo(htmlStr, '__code');

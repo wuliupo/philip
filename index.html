@@ -16,23 +16,25 @@
         <div class="header"></div>
 
         <div class="tabs">
-            <input type="radio" id="note" name="tab" checked>
-            <label class="tab" for="note">
+            <a href="#note" class="tab" id="note">
                 <i class="icon-note"></i>
                 <span>Note</span>
-            </label>
+            </a>
 
-            <input type="radio" id="tool" name="tab">
-            <label class="tab" for="tool">
+            <a href="#tool" class="tab" id="tool">
                 <i class="icon-tool"></i>
                 <span>Tool</span>
-            </label>
+            </a>
 
-            <input type="radio" id="code" name="tab">
-            <label class="tab" for="code">
+            <a href="#code" class="tab" id="code">
                 <i class="icon-code"></i>
                 <span>Code</span>
-            </label>
+            </a>
+
+            <a href="#book" class="tab" id="book">
+                <i class="icon-book"></i>
+                <span>Book</span>
+            </a>
 
             <div class="search">
                 <input type="search" id="search">
@@ -44,40 +46,39 @@
             <div class="content">
                 <div class="panel note">
                     <div id="__note"></div>
+                    note
                 </div>
 
                 <div class="panel tool">
-                    <a class="card" target="_blank" href="https://philipding.github.io/linux">
-                        <img src="icons/linux.svg">
-                        <div>
-                            <div class="title">Linux Command</div>
-                            <div class="subtitle">Linux命令大全搜索工具（个人）</div>
-                        </div>
+                    <a class="card icon-linux" target="_blank" href="https://philipding.github.io/linux">
+                        <div class="title">Linux Command</div>
+                        <div class="subtitle">Linux命令大全搜索工具（个人）</div>
                     </a>
 
-                    <a class="card" target="_blank" href="https://csstriggers.com/">
-                        <img src="icons/css-trigger.png">
-                        <div>
-                            <div class="title">CSS Triggers</div>
-                            <div class="subtitle">Render impact of mutating CSS properties</div>
-                        </div>
+                    <a class="card icon-favorite" target="_blank" href="https://csstriggers.com/">
+                        <div class="title">CSS Triggers</div>
+                        <div class="subtitle">Render impact of mutating CSS properties</div>
                     </a>
 
-                    <a class="card" target="_blank" href="https://platform.html5.org/">
-                        <img src="icons/h5.svg">
-                        <div>
-                            <div class="title">Web platform</div>
-                            <div class="subtitle">HTML5的web浏览技术图谱</div>
-                        </div>
+                    <a class="card icon-h5" target="_blank" href="https://platform.html5.org/">
+                        <div class="title">Web platform</div>
+                        <div class="subtitle">HTML5的web浏览技术图谱</div>
                     </a>
                 </div>
 
                 <div class="panel code">
                     <div id="__code"></div>
                 </div>
+
+                <div class="panel book">
+                    <div id="__book"></div>
+                    book
+                </div>
             </div>
         </div>
     </div>
+
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
 
     <script>
         !function() {
@@ -100,12 +101,17 @@
                 for (var i = 0, len = arr.length; i < len; i++) {
                     item = arr[i];
                     if (item && item.type == 'file' && item.name.indexOf('.html') > -1) {
-                        html += '<a class="tag" target="_blank" href="//philipding.github.io/codepen/' + item.name + '">' + item.name.replace(/\.html/, '') + '</a>'
+                        html += ('<a class="tag" target="_blank" href="//philipding.github.io/codepen/' + item.name + '">'
+                                 + item.name.replace(/\.html/ig, '').replace(/-/g, ' ')
+                                 + '</a>');
                     }
                 }
 
                 document.getElementById(id).innerHTML = html
             }
+
+            // TODO: 如何用纯CSS来实现默认选中第一个tab
+            document.getElementsByClassName('tab')[0].click();
 
             var htmlStr = localStorage && localStorage.getItem('__code') || '';
             htmlStr && appendTo(htmlStr, '__code');

@@ -129,12 +129,21 @@ input[type='search'] {
     transition: background-color .2s ease-in-out;
 }
 
-.tab:last-child, .tab:target {
+.tab:last-child,
+#tool:target~.container .tab-menu .tool,
+#code:target~.container .tab-menu .code,
+#book:target~.container .tab-menu .book,
+#note:target~.container .tab-menu .note
+{
     background-color: #5DA2ED;
     color: #fff;
 }
 
-.tab:target ~ .tab{
+#tool:target~.container .tab-menu .tool ~ .tab,
+#code:target~.container .tab-menu .code ~ .tab,
+#book:target~.container .tab-menu .book ~ .tab,
+#note:target~.container .tab-menu .note ~ .tab
+{
     background-color: transparent;
     color: #8398AD;
 }
@@ -175,6 +184,23 @@ input[type='search'] {
     pointer-events: none;
     height: calc(100vh - 44px);
     overflow: auto;
+}
+
+.panel:last-child,
+#tool:target~.container .content .tool,
+#code:target~.container .content .code,
+#book:target~.container .content .book,
+#note:target~.container .content .note
+{
+    opacity: 1;
+}
+
+#tool:target~.container .content .tool ~ .panel,
+#code:target~.container .content .code ~ .panel,
+#book:target~.container .content .book ~ .panel,
+#note:target~.container .content .note ~ .panel
+{
+    opacity: 0;
 }
 
 

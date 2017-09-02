@@ -1,15 +1,13 @@
 @font-face {
     font-family: 'icomoon';
-    src:  url('fonts/icomoon.eot?xva0k6');
-    src:  url('fonts/icomoon.eot?xva0k6#iefix') format('embedded-opentype'),
-      url('fonts/icomoon.ttf?xva0k6') format('truetype'),
-      url('fonts/icomoon.woff?xva0k6') format('woff'),
-      url('fonts/icomoon.svg?xva0k6#icomoon') format('svg');
+    src: url('fonts/icomoon.eot?xva0k6');
+    src: url('fonts/icomoon.eot?xva0k6#iefix') format('embedded-opentype'), url('fonts/icomoon.ttf?xva0k6') format('truetype'), url('fonts/icomoon.woff?xva0k6') format('woff'), url('fonts/icomoon.svg?xva0k6#icomoon') format('svg');
     font-weight: normal;
     font-style: normal;
-  }
+}
 
-  [class^="icon-"], [class*=" icon-"] {
+[class^="icon-"],
+[class*=" icon-"] {
     /* use !important to prevent issues with browser extensions that change fonts */
     font-family: 'icomoon' !important;
     speak: none;
@@ -18,37 +16,42 @@
     font-variant: normal;
     text-transform: none;
     line-height: 1;
-
     /* Better Font Rendering =========== */
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-  }
+}
 
-  .icon-book:before {
+.icon-book:before {
     content: "\e907";
-  }
-  .icon-favorite:before {
-    content: "\e906";
-  }
-  .icon-code:before {
-    content: "\e901";
-  }
-  .icon-note:before {
-    content: "\e902";
-  }
-  .icon-search:before {
-    content: "\e903";
-  }
-  .icon-tool:before {
-    content: "\e904";
-  }
-  .icon-h5:before {
-    content: "\e900";
-  }
-  .icon-linux:before {
-    content: "\e905";
-  }
+}
 
+.icon-favorite:before {
+    content: "\e906";
+}
+
+.icon-code:before {
+    content: "\e901";
+}
+
+.icon-note:before {
+    content: "\e902";
+}
+
+.icon-search:before {
+    content: "\e903";
+}
+
+.icon-tool:before {
+    content: "\e904";
+}
+
+.icon-h5:before {
+    content: "\e900";
+}
+
+.icon-linux:before {
+    content: "\e905";
+}
 
 
 /* ====================== */
@@ -175,8 +178,6 @@ input[type='search'] {
 }
 
 
-
-
 /* ====================== */
 
 .card {
@@ -198,7 +199,7 @@ input[type='search'] {
     left: 8px;
     font-size: 35px;
     top: 12px;
-    color: rgba(0,0,0,0.7);
+    color: rgba(0, 0, 0, 0.7);
 }
 
 .card .title {
